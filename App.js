@@ -1,15 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
+import HomeScreen from "./screens/HomeScreen";
 import { store } from "./store";
 
 // 1) Setting up Redux - Setting up our provider
 export default function App() {
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Text>Lambda text to see if it works </Text>
-      </View>
+      <HomeScreen />
     </Provider>
   );
 }
