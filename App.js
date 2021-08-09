@@ -1,14 +1,19 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
-import HomeScreen from "./screens/HomeScreen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
 import { store } from "./store";
+
+import HomeScreen from "./screens/HomeScreen";
 
 // 1) Setting up Redux - Setting up our provider
 export default function App() {
   return (
     <Provider store={store}>
-      <HomeScreen />
+      <SafeAreaProvider>
+        <HomeScreen />
+      </SafeAreaProvider>
     </Provider>
   );
 }
