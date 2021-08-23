@@ -10,4 +10,4 @@ What I'm using / Docs :
 - https://reactnavigation.org/
 - https://github.com/FaridSafi/react-native-google-places-autocomplete
 - Directions API, Google Places API, Distance Metrics API
-- 
+- https://github.com/react-native-maps/react-native-maps
