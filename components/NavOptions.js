@@ -30,7 +30,7 @@ const NavOptions = () => {
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => navigation.navigate(item.screen)}
-          style={tw`bg-gray-200 m-2 w-40 p-2 pl-6 pb-8 pt-4 h-2/5`}
+          style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
         >
           <View>
             <Image
@@ -39,7 +39,7 @@ const NavOptions = () => {
             />
             <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
             <Icon
-              style={tw`p-2 bg-black w-10 mt-4 rounded-full`}
+              style={tw`p-2 bg-black w-10 mt-4 rounded-full w-10 mt-4`}
               name="arrowright"
               color="white"
               type="antdesign"

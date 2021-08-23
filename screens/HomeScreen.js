@@ -13,7 +13,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
-      <View style={tw`p-5 `}>
+      <View style={tw`p-5`}>
         <Image
           style={{
             width: 100,
@@ -27,6 +27,9 @@ const HomeScreen = () => {
         <GooglePlacesAutocomplete
           placeholder="Where From?"
           styles={{
+            container: {
+              flex: 0,
+            },
             textInput: {
               fontSize: 18,
             },
@@ -47,8 +50,7 @@ const HomeScreen = () => {
           minLength={2}
           query={{
             key: GOOGLE_MAPS_APIKEY,
-            language: "en",
-            types: "(cities)",
+            language: "fr",
           }}
           nearbyPlacesAPI="GooglePlacesSearch"
           debounce={400}
