@@ -29,11 +29,14 @@ const HomeScreen = () => {
         <GooglePlacesAutocomplete
           placeholder="Where From?"
           styles={{
-            container: {
-              flex: 0,
-            },
+            container: { flex: 0, backgroundColor: "white" },
             textInput: {
               fontSize: 18,
+              borderRadius: 5,
+              backgroundColor: "lightgray",
+            },
+            textInputContainer: {
+              paddingBottom: 0,
             },
           }}
           onPress={(data, details = null) => {
@@ -48,12 +51,10 @@ const HomeScreen = () => {
             dispatch(setDestination(null));
           }}
           fetchDetails={true}
+          returnKeyType={"search"}
+          query={{ key: GOOGLE_API_KEY, language: "en" }}
           enablePoweredByContainer={false}
           minLength={2}
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: "fr",
-          }}
           nearbyPlacesAPI="GooglePlacesSearch"
           debounce={400}
         />

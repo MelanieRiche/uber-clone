@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setDestination } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import NavFavourites from "./NavFavourites";
+import { Icon } from "react-native-elements";
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const NavigateCard = () => {
             placeholder="Where To?"
             styles={{ toInputBoxStyles }}
             fetchDetails={true}
-            returnKayType={"search"}
+            returnKeyType={"search"}
             minLength={2}
             onPress={(data, details = null) => {
               // console.log(data, details);
@@ -44,6 +45,24 @@ const NavigateCard = () => {
           />
         </View>
         <NavFavourites />
+      </View>
+
+      <View
+        style={tw`flex-row bg-white justify-around py-2 mt-auto border-t border-gray-100`}
+      >
+        <TouchableOpacity
+          style={tw`flex flex-row bg-black w-24 justify-between px-4 py-3 rounded-full`}
+          onPress={() => navigation.navigate("RideOptionCard")}
+        >
+          <Icon color="white" name="car" type="font-awesome" size={16} />
+          <Text style={tw`text-white text-center`}>Rides</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`flex flex-row bg-white w-24 justify-between px-4 py-3 rounded-full`}
+        >
+          <Icon color="black" name="fast-food" type="ionicon" size={16} />
+          <Text style={tw`text-black  text-center`}>Eats</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
