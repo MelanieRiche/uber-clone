@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
-import { selectDestination, selectOrigin } from "../slices/navSlice";
+import { selectDestination, selectOrigin, setTravelTimeInformation } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 
-const MapScreen = () => {
+const Map = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!origin || !destination) return;
@@ -21,6 +22,20 @@ const MapScreen = () => {
     });
   }, [origin, destination]); // rerun code if origin or destination change
 
+  // Calculate distance from A to B using google distance matrix API. And then dispatch and save it to redux store
+  useEffect(() => {
+    if (!origin || !destination) return;
+    const getTravelTime = async () => {
+      const queryURL = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&orgins=${origin.description}&destinations=${destination.description}&key=${GOOGLE_MAPS_APIKEY}`;
+      await fetch(queryURL)
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          dispatch(setTravelTimeInformation(data.rows[0].elements[0]));
+        });
+    };
+  }, [origin, destination, {GOOGLE_MAPS_APIKEY]);
+
   return (
     <MapView
       ref={mapRef}
@@ -29,6 +44,7 @@ const MapScreen = () => {
       initialRegion={{
         latitude: origin.location.lat,
         longitude: origin.location.lng,
+        // Zoom in or out
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
       }}
@@ -48,6 +64,7 @@ const MapScreen = () => {
             latitude: origin.location.lat,
             longitude: origin.location.lng,
           }}
+          // popup when user touch the marker
           title="Origin"
           description={origin.description}
           identifier="origin"
@@ -60,6 +77,7 @@ const MapScreen = () => {
             latitude: destination.location.lat,
             longitude: destination.location.lng,
           }}
+          // popup when user touch the marker
           title="Destination"
           description={destination.description}
           identifier="destination"
@@ -69,6 +87,6 @@ const MapScreen = () => {
   );
 };
 
-export default MapScreen;
+export default Map;
 
 const styles = StyleSheet.create({});
